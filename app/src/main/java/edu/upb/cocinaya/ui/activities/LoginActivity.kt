@@ -11,7 +11,7 @@ import edu.upb.cocinaya.ui.fragments.LoginOptionsFragment
 import edu.upb.cocinaya.ui.fragments.TermsAndConditionsFragment
 
 class LoginActivity : AppCompatActivity() {
-
+    //PRUEBA
     val loginFragment = LoginOptionsFragment()
     val termsAndConditionsFragment = TermsAndConditionsFragment()
 
