@@ -11,7 +11,7 @@ import edu.upb.cocinaya.ui.fragments.LoginOptionsFragment
 import edu.upb.cocinaya.ui.fragments.TermsAndConditionsFragment
 
 class LoginActivity : AppCompatActivity() {
-    //PRUEBA
+
     val loginFragment = LoginOptionsFragment()
     val termsAndConditionsFragment = TermsAndConditionsFragment()
 
@@ -31,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
         termsAndConditionsFragment.setOnSuccessListener {
             val intent = Intent(this, MainMenuActivity::class.java)
             startActivity(intent)
+            finish()
         }
         termsAndConditionsFragment.setOnErrorListener {
             Toast.makeText(this, "ERROR ${it}", Toast.LENGTH_SHORT).show()
