@@ -18,7 +18,7 @@ class FeedFragment: Fragment() {
     private val feedListAdapter = FeedListAdapter()
     private lateinit var binding: FragmentFeedBinding
     private val userViewModel: UserViewModel by activityViewModels()
-    private val feedViewModel: FeedViewModel by activityViewModels()
+    private val feedViewModel: FeedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +34,7 @@ class FeedFragment: Fragment() {
 
 //        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 //        val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvFeed.layoutManager = layoutManager
 
         LinearSnapHelper().attachToRecyclerView(binding.rvFeed)
@@ -51,6 +51,14 @@ class FeedFragment: Fragment() {
         feedViewModel.posts.observe(viewLifecycleOwner) {
             feedListAdapter.addAll(it)
         }
-        feedViewModel.getAllPosts(requireContext())
+
+        binding.swiperefresh.setOnRefreshListener {
+            feedViewModel.updateFeed().invokeOnCompletion {
+                binding.swiperefresh.isRefreshing = false
+            }
+        }
+
+        feedViewModel.updateFeed()
+//        feedViewModel.getAllPosts(requireContext())
     }
 }
